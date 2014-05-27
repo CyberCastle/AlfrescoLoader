@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Definition of new Model -->
+<!-- The important part here is the name - Note: the use of the mssp: namespace
+     which is defined further on in the document -->
+<model xmlns="http://www.alfresco.org/model/dictionary/1.0" name="mssp:tramites_electronicos_model">
+	<!-- Optional meta-data about the model -->
+	<description>Example custom Model</description>
+
+	<version>1.0</version>
+	<!-- Imports are required to allow references to definitions in other models -->
+	<imports>
+		<!-- Import Alfresco Dictionary Definitions -->
+		<import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d"/>
+		<!-- Import Alfresco Content Domain Model Definitions -->
+		<import uri="http://www.alfresco.org/model/content/1.0" prefix="cm"/>
+	</imports>
+	<!-- Introduction of new namespaces defined by this model -->
+	<!-- NOTE: The following namespace mssp.new.model should be changed to reflect your own namespace -->
+	<namespaces>
+		<namespace uri="cl.misal.ssp" prefix="mssp"/>
+	</namespaces>
+	<aspects>
+		<!-- Definition of new Content Aspect: Image Classification -->
+		<aspect name="mssp:tramites_electronicos">
+			<title>msspisterio Salud Pública</title>
+			<properties>
+				
+				<property name="mssp:num_prestacion">
+					<title>Numero del trámite</title>
+					<type>d:int</type> 
+					<mandatory>true</mandatory>
+					</property >	
+				
+				<property name="mssp:tipo_prestacion">
+					<title>Tipo de trámite</title>
+					<type>d:text</type> 
+					<mandatory>true</mandatory>
+				</property>	
+
+				<property name="mssp:fecha_inicio">
+					<title>Fecha en la que se inició el trámite</title>
+					<type>d:date</type> 
+					<mandatory>true</mandatory>
+				</property>	
+
+				<property name="mssp:fecha_termino">
+					<title>Fecha en la que se finalizó el trámite</title>
+					<type>d:date</type>
+					<mandatory>true</mandatory>
+				</property>
+				
+				<property name="mssp:area_tematica">
+					<title>Area al que pertenece el trámite</title>
+					<type>d:text</type>
+					<mandatory>true</mandatory>
+				</property>
+				
+				<property name="mssp:rut">
+					<title>RUT</title>
+					<type>d:text</type>
+					<mandatory>true</mandatory>
+				</property>
+				
+				<property name="mssp:nombre_solicitante">
+					<title>Nombre del Solicitante</title>
+					<type>d:text</type>
+					<mandatory>true</mandatory>
+				</property>
+
+				<property name="mssp:origen_sistema">
+					<title>Sistema en donde se realizó el trámite</title>
+					<type>d:text</type>
+					<mandatory>true</mandatory>
+				</property>
+				
+			</properties>
+		</aspect>
+	</aspects>
+</model>

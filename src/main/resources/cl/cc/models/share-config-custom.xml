@@ -1,0 +1,305 @@
+<alfresco-config>
+   
+   <!-- Repository Library config section -->
+   <config evaluator="string-compare" condition="RepositoryLibrary" replace="true">
+      <!--
+         Whether the link to the Repository Library appears in the header component or not.
+      -->
+      <visible>true</visible>
+   </config>
+
+   <config evaluator="string-compare" condition="Remote">
+      <remote>
+         <endpoint>
+            <id>alfresco-noauth</id>
+            <name>Alfresco - unauthenticated access</name>
+            <description>Access to Alfresco Repository WebScripts that do not require authentication</description>
+            <connector-id>alfresco</connector-id>
+            <endpoint-url>http://localhost:8080/alfresco/s</endpoint-url>
+            <identity>none</identity>
+         </endpoint>
+
+         <endpoint>
+            <id>alfresco</id>
+            <name>Alfresco - user access</name>
+            <description>Access to Alfresco Repository WebScripts that require user authentication</description>
+            <connector-id>alfresco</connector-id>
+            <endpoint-url>http://localhost:8080/alfresco/s</endpoint-url>
+            <identity>user</identity>
+         </endpoint>
+
+         <endpoint>
+            <id>alfresco-feed</id>
+            <name>Alfresco Feed</name>
+            <description>Alfresco Feed - supports basic HTTP authentication via the EndPointProxyServlet</description>
+            <connector-id>http</connector-id>
+            <endpoint-url>http://localhost:8080/alfresco/s</endpoint-url>
+            <basic-auth>true</basic-auth>
+            <identity>user</identity>
+         </endpoint>
+         
+         <endpoint>
+            <id>activiti-admin</id>
+            <name>Activiti Admin UI - user access</name>
+            <description>Access to Activiti Admin UI, that requires user authentication</description>
+            <connector-id>activiti-admin-connector</connector-id>
+            <endpoint-url>http://localhost:8080/alfresco/activiti-admin</endpoint-url>
+            <identity>user</identity>
+         </endpoint>
+      </remote>
+   </config>
+   
+  <config evaluator="string-compare" condition="DocumentLibrary">
+
+		<!--
+         Used by the "Manage Aspects" action
+
+         For custom aspects, remember to also add the relevant i18n string(s)
+            cm_myaspect=My Aspect
+      -->
+		<aspects>
+			<!-- Aspects that a user can see -->
+			<visible>
+				<aspect name="cm:generalclassifiable" />
+				<aspect name="cm:complianceable" />
+				<aspect name="cm:dublincore" />
+				<aspect name="cm:effectivity" />
+				<aspect name="cm:summarizable" />
+				<aspect name="cm:versionable" />
+				<aspect name="cm:templatable" />
+				<aspect name="cm:emailed" />
+				<aspect name="emailserver:aliasable" />
+				<aspect name="cm:taggable" />
+				<aspect name="app:inlineeditable" />
+				<aspect name="mssp:tramites_electronicos" />
+			
+
+			</visible>
+
+			<!-- Aspects that a user can add. Same as "visible" if left empty -->
+			<addable>
+			</addable>
+
+			<!-- Aspects that a user can remove. Same as "visible" if left empty -->
+			<removeable>
+			</removeable>
+		</aspects>
+
+	</config>
+	<!-- form para nuestro custom aspec -->
+	<config evaluator="node-type" condition="my:cmobject">
+		<forms>
+			<form>
+				<field-visibility>
+					<show id="cm:name"  />
+					<show id="cm:description" />
+
+
+					<!-- my:metadatos aspect data, if applied -->
+					<show id="mssp:num_prestacion"  />
+					<show id="mssp:tipo_prestacion"  />
+					<show id="mssp:fecha_inicio"  />
+					<show id="mssp:fecha_termino"   />
+					<show id="mssp:area_tematica"   />
+					<show id="mssp:rut"  />
+					<show id="mssp:nombre_solicitante" />
+					<show id="mssp:origen_sistema" />
+					
+				</field-visibility>
+			</form>
+		</forms>
+	</config>
+	<config evaluator="aspect" condition="my:metadatos">
+		<forms>
+			<form>
+				<field-visibility>
+					<!-- my:metadatos aspect data, if applied -->
+					<show id="mssp:num_prestacion"  />
+					<show id="mssp:tipo_prestacion"  />
+					<show id="mssp:fecha_inicio"  />
+					<show id="mssp:fecha_termino"   />
+					<show id="mssp:area_tematica"   />
+					<show id="mssp:rut"  />
+					<show id="mssp:nombre_solicitante" />
+					<show id="mssp:origen_sistema" />
+				</field-visibility>
+			</form>
+		</forms>
+	</config>
+	<!-- cm:content type (existing nodes) -->
+	<config  evaluator="node-type" condition="cm:content">
+		<forms>
+			<!-- Default form configuration used on the document details and edit metadata pages -->
+			<form>
+				<field-visibility>
+					<show id="mssp:num_prestacion"  />
+					<show id="mssp:tipo_prestacion"  />
+					<show id="mssp:fecha_inicio"  />
+					<show id="mssp:fecha_termino"   />
+					<show id="mssp:area_tematica"   />
+					<show id="mssp:rut"  />
+					<show id="mssp:nombre_solicitante" />
+					<show id="mssp:origen_sistema" />
+				</field-visibility>
+			</form>
+
+
+
+
+			<!-- Document Library pop-up Edit Metadata form -->
+			<form id="doclib-simple-metadata">
+				<field-visibility>
+					<show id="mssp:num_prestacion"  />
+					<show id="mssp:tipo_prestacion"  />
+					<show id="mssp:fecha_inicio"  />
+					<show id="mssp:fecha_termino"   />
+					<show id="mssp:area_tematica"   />
+					<show id="mssp:rut"  />
+					<show id="mssp:nombre_solicitante" />
+					<show id="mssp:origen_sistema" />
+				</field-visibility>
+				<edit-form template="../documentlibrary/forms/doclib-simple-metadata.ftl" />
+			</form>
+
+			<!-- Document Library Inline Edit form -->
+			<form id="doclib-inline-edit">
+				<field-visibility>
+					<show id="mssp:num_prestacion"  />
+					<show id="mssp:tipo_prestacion"  />
+					<show id="mssp:fecha_inicio"  />
+					<show id="mssp:fecha_termino"   />
+					<show id="mssp:area_tematica"   />
+					<show id="mssp:rut"  />
+					<show id="mssp:nombre_solicitante" />
+					<show id="mssp:origen_sistema" />
+				</field-visibility>
+			</form>
+		</forms>
+	</config>
+
+
+
+	<config  evaluator="node-type" condition="cm:folder">
+		<forms>
+			<!-- Default form configuration used on the document details and edit metadata pages -->
+			<form>
+				<field-visibility>
+				<show id="mssp:num_prestacion"  />
+					<show id="mssp:tipo_prestacion"  />
+					<show id="mssp:fecha_inicio"  />
+					<show id="mssp:fecha_termino"   />
+					<show id="mssp:area_tematica"   />
+					<show id="mssp:rut"  />
+					<show id="mssp:nombre_solicitante" />
+					<show id="mssp:origen_sistema" />
+				</field-visibility>
+			</form>
+
+
+
+
+			<!-- Document Library pop-up Edit Metadata form -->
+			<form id="doclib-simple-metadata">
+				<field-visibility>
+					<show id="mssp:num_prestacion"  />
+					<show id="mssp:tipo_prestacion"  />
+					<show id="mssp:fecha_inicio"  />
+					<show id="mssp:fecha_termino"   />
+					<show id="mssp:area_tematica"   />
+					<show id="mssp:rut"  />
+					<show id="mssp:nombre_solicitante" />
+					<show id="mssp:origen_sistema" />
+				</field-visibility>
+				<edit-form template="../documentlibrary/forms/doclib-simple-metadata.ftl" />
+			</form>
+
+			<!-- Document Library Inline Edit form -->
+			<form id="doclib-inline-edit">
+				<field-visibility>
+
+				<show id="mssp:organizador"  />
+					<show id="mssp:num_prestacion"  />
+					<show id="mssp:tipo_prestacion"  />
+					<show id="mssp:fecha_inicio"  />
+					<show id="mssp:fecha_termino"   />
+					<show id="mssp:area_tematica"   />
+					<show id="mssp:rut"  />
+					<show id="mssp:nombre_solicitante" />
+					<show id="mssp:origen_sistema" />
+				</field-visibility>
+			</form>
+		</forms>
+	</config>
+
+
+
+
+
+
+	<config evaluator="string-compare" condition="AdvancedSearch">
+   <advanced-search>
+      <forms>
+         <form id="search2" label="Minsal" description="Ministerio Salud Pública">cm:content</form>
+      </forms>
+   </advanced-search>
+   </config>
+
+   <config evaluator="model-type" condition="cm:content">
+   <forms>
+      <form id="search2">
+         <field-visibility>
+			
+					<show id="mssp:num_prestacion" force="true" />
+					<show id="mssp:tipo_prestacion"  force="true" />
+					<show id="mssp:fecha_inicio"  force="true" />
+					<show id="mssp:fecha_termino"  force="true" />
+					<show id="mssp:area_tematica"   force="true" />
+					<show id="mssp:rut"  force="true" />
+					<show id="mssp:nombre_solicitante" force="true" />
+					<show id="mssp:origen_sistema" force="true" />
+							
+						 
+						
+         </field-visibility>
+         <appearance>
+					   
+            <field id="mssp:num_prestacion">
+				<control template="/org/alfresco/components/form/controls/textfield.ftl" /> 
+			</field>
+			  <field id="mssp:tipo_prestacion">
+				<control template="/org/alfresco/components/form/controls/textfield.ftl" />
+			</field>
+			  <field id="mssp:fecha_inicio">
+				<control template="/org/alfresco/components/form/controls/date.ftl" />
+			</field>
+			  <field id="mssp:fecha_termino">
+				<control template="/org/alfresco/components/form/controls/date.ftl" />
+			</field>
+			  <field id="mssp:area_tematica">
+				<control template="/org/alfresco/components/form/controls/textfield.ftl" />
+			</field>
+			  <field id="mssp:rut">
+				<control template="/org/alfresco/components/form/controls/textfield.ftl" />
+			</field>
+			  <field id="mssp:nombre_solicitante">
+				<control template="/org/alfresco/components/form/controls/textfield.ftl" />
+			</field>
+			
+			  <field id="mssp:origen_sistema">
+				<control template="/org/alfresco/components/form/controls/textfield.ftl" />
+			</field>
+            
+			
+			
+			
+			
+           
+				
+		
+         </appearance>
+      </form>
+   </forms>
+   </config> 
+   
+
+</alfresco-config>
